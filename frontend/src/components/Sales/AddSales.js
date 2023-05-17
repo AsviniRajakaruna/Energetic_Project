@@ -2,37 +2,36 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export default function AddSales() {
+  const [cust_name, setName] = useState("");
+  const [street_addr, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [c_email, setEmail] = useState("");
+  const [phone_no, setPhone] = useState("");
 
-
-  const[name, setName] = useState("");
-  const[address, setAddress] = useState("");
-  const[city, setCity] = useState("");
-  const[email, setEmail] = useState("");
-  const[phone, setPhone] = useState("");
-
-  function sendData(e){
+  function sendData(e) {
     e.preventDefault();
 
-    const newSales={
-      name,
-      address,
+    const newSales = {
+      cust_name,
+      street_addr,
       city,
-      email,
-      phone
-    }
+      c_email,
+      phone_no,
+    };
 
-    axios.post("http://localhost:5000/sales/add",newSales).then(()=>{
-      alert("sales added")
-      setName("");
-      setAddress("");
-      setCity("");
-      setEmail("");
-      setPhone("");
-
-    }).catch((err)=>{
-      alert(err)
-    })
-    
+    axios
+      .post("http://localhost:5000/sales/add", newSales)
+      .then(() => {
+        alert("sales added");
+        setName("");
+        setAddress("");
+        setCity("");
+        setEmail("");
+        setPhone("");
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
   return (
@@ -48,10 +47,9 @@ export default function AddSales() {
             class="form-control"
             id=""
             aria-describedby="Enter your name"
-            onChange={(e)=>{
-              setName(e.target.value)
-            }
-            }
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           />
         </div>
 
@@ -64,10 +62,9 @@ export default function AddSales() {
             class="form-control"
             id=""
             aria-describedby="Enter your address"
-            onChange={(e)=>{
-              setAddress(e.target.value)
-            }
-            }
+            onChange={(e) => {
+              setAddress(e.target.value);
+            }}
           />
         </div>
 
@@ -80,10 +77,9 @@ export default function AddSales() {
             class="form-control"
             id=""
             aria-describedby="Enter your city"
-            onChange={(e)=>{
-              setCity(e.target.value)
-            }
-            }
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
           />
         </div>
 
@@ -96,10 +92,9 @@ export default function AddSales() {
             class="form-control"
             id=""
             aria-describedby="Enter your email"
-            onChange={(e)=>{
-              setEmail(e.target.value)
-            }
-            }
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <div id="emailHelp" class="form-text">
             We'll never share your email with anyone else.
@@ -115,10 +110,9 @@ export default function AddSales() {
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="Enter your phone number"
-            onChange={(e)=>{
-              setPhone(e.target.value)
-            }
-            }
+            onChange={(e) => {
+              setPhone(e.target.value);
+            }}
           />
         </div>
 
