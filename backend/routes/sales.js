@@ -2,14 +2,9 @@ const router = require('express').Router();
 let Sales = require('../models/sales');
 const User = require('../models/user');
 
-router.route('/add').post((req, res) => {
+router.route('/add').post(async (req, res) => {
 
-    
-    const cust_name = req.body.cust_name;
-    const street_addr = req.body.street_addr;
-    const city = req.body.city;
-    const c_email = req.body.c_email;
-    const phone_no = req.body.phone_no;
+    const { cust_name, street_addr, city, c_email, phone_no } = req.body;
 
 
     const newSales = new Sales({
@@ -18,16 +13,14 @@ router.route('/add').post((req, res) => {
         street_addr,
         city,
         c_email,
-        phone_no,
-
-    })
-
-    newSales.save().then(() => {
-        req.json('sales added!')
-    }).catch((err) => {
-        console.log(err);
+        phone_no
 
     });
+
+    await newSales
+        .save()
+        .then(() => res.status(200).json({ success: true }))
+        .catch((error) => res.status(500).json({ success: false, error: error })); // else save to the db
 });
 router.route('/').get((req, res) => {
     Sales.find().then((sales) => {

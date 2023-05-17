@@ -8,34 +8,36 @@ export default function AddSales() {
   const [c_email, setEmail] = useState("");
   const [phone_no, setPhone] = useState("");
 
-  function sendData(e) {
+  async function sendData(e) {
     e.preventDefault();
 
     const newSales = {
-      cust_name,
-      street_addr,
-      city,
-      c_email,
-      phone_no,
+      cust_name:cust_name.trim(),
+      street_addr:street_addr.trim(),
+      city:city.trim(),
+      c_email:c_email.trim(),
+      phone_no:phone_no.trim(),
     };
 
-    axios
-      .post("http://localhost:5000/sales/add", newSales)
-      .then(() => {
-        alert("sales added");
-        setName("");
-        setAddress("");
-        setCity("");
-        setEmail("");
-        setPhone("");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    await axios
+        .post("http://localhost:5000/sales/add", newSales)
+        .then(() => {
+          console
+              .log("Added")
+          alert("sales added");
+          setName("");
+          setAddress("");
+          setCity("");
+          setEmail("");
+          setPhone("");
+        })
+        .catch((err) => {
+          alert("Please check input values");
+        });
   }
 
   return (
-    <div className="container">
+    <div className="container align-items-center pb-4 w-50">
       <form onSubmit={sendData}>
         <h1>Delivery Information</h1>
         <div class="mb-3">
@@ -116,13 +118,28 @@ export default function AddSales() {
           />
         </div>
 
+        <div className="mb-3">
+          <label htmlFor="phone_no" className="form-label">
+            Upload Slip
+          </label>
+          <input
+              type="file"
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="Enter your phone number"
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+          />
+        </div>
+
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" />
           <label class="form-check-label" for="exampleCheck1">
             Check me out
           </label>
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" style={{background:"#ffb600"}}>
           Submit
         </button>
       </form>

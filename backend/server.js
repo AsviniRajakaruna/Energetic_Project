@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-const URL = process.env.MONGODB_URL;
+const URL = "mongodb+srv://asvini:RMJPMAk69BWT4lFZ@energetic-db-cluster.ilqfsh6.mongodb.net/energetic_db?retryWrites=true&w=majority";
 
 mongoose.connect(URL, {
   useNewUrlParser: true,
